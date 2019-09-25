@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        nodejs: 10
+  build:
+    commands:
+      - npm install time
+      - export BUCKET=maestrik
+      - pip3 install pytest pytest-mock --user
+      - pip3 install -r notify_user/requirements.txt
+      - python3 -m pytest tests/ -v
+      - aws cloudformation package --template-file template.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
+artifacts:
+  type: zip
+  files:
+    - template.yaml
+    - outputtemplate.yaml

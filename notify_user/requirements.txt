@@ -1,0 +1,3 @@
+requests
+boto3
+phonenumbers==8.10.18
